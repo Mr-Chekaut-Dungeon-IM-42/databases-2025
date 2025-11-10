@@ -125,7 +125,6 @@ CREATE TABLE views (
     video_id    SERIAL NOT NULL REFERENCES videos(id) ON DELETE CASCADE
 );
 
--- VIEWS
 INSERT INTO views (watched_at, user_id, video_id) VALUES
 ('2024-01-14', 2, 1),
 ('2024-01-17', 1, 2),
