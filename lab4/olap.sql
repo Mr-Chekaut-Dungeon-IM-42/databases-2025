@@ -12,8 +12,10 @@ join playlist_video pv on
 	p.id = pv.playlist_id
 join videos vd on
 	pv.video_id = vd.id
-join views vw on vd.id = vw.video_id
-group by p.id, u.username;
+join views vw on
+	vd.id = vw.video_id
+group by
+	p.id, u.username;
 
 -- Number of user's comments with some random HAVING clause
 select
