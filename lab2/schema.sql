@@ -119,10 +119,10 @@ INSERT INTO subscription (user_id, channel_id) VALUES
 (1, 6);
 
 CREATE TABLE views (
-    id          SERIAL PRIMARY KEY,
-    watched_at  DATE NOT NULL DEFAULT NOW(),
     user_id     SERIAL NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    video_id    SERIAL NOT NULL REFERENCES videos(id) ON DELETE CASCADE
+    video_id    SERIAL NOT NULL REFERENCES videos(id) ON DELETE CASCADE,
+    watched_at  DATE NOT NULL DEFAULT NOW(),
+    PRIMARY KEY (user_id, video_id)
 );
 
 INSERT INTO views (watched_at, user_id, video_id) VALUES
