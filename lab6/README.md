@@ -1,6 +1,22 @@
-# Стан після нульової міграції з початковими тестовими даними
+# Інструкції до запуску
 
-Версія бази даних: `2c6c3c579839_init.py`
+- Мати встановлений `uv`.
+- У директорії `lab6` прописати `uv sync`
+- Активувати virtual environment: `. .venv/bin/activate` (для лінуксоїдів, на
+  вінді венв активується через `.venv/bin/activate.bat` (або `.ps1` для
+  PowerShell), чи якось так).
+- Ініціалізувати початкову схему: `alembic upgrade 2c6c3c579839`
+- Заповнити таблицю тестовими даними: `uv run src/populate.py`
+- Вручну перевірити стан таблиці.
+- Застосувати міграції: `alembic upgrade <rev>` для конкретної ревізії,
+  `alembic upgrade head` для останньої.
+
+# Хід виконання
+
+## Стан після нульової міграції з початковими тестовими даними
+
+Версія бази даних:
+[`2c6c3c579839_init.py`](https://github.com/Mr-Chekaut-Dungeon-IM-42/databases-2025/blob/main/lab6/src/alembic/versions/2c6c3c579839_init.py)
 
 Вигляд таблиці `subscription` після міграції:
 
@@ -14,7 +30,7 @@ db_labs=# select * from subscription;
 (3 rows)
 ```
 
-# Міграція №1: додавання поля у таблицю
+## Міграція №1: додавання поля у таблицю
 
 Зміни у визначенні моделей:
 
@@ -34,7 +50,8 @@ db_labs=# select * from subscription;
      channel: Mapped[Channel] = relationship("Channel", back_populates="subscribers")
 ```
 
-Версія бази даних: `5d339deb073c_add_premium_subscriptions.py`
+Версія бази даних:
+[`5d339deb073c_add_premium_subscriptions.py`](https://github.com/Mr-Chekaut-Dungeon-IM-42/databases-2025/blob/main/lab6/src/alembic/versions/5d339deb073c_add_premium_subscriptions.py)
 
 Вигляд таблиці `subscription` після міграції:
 
@@ -48,7 +65,7 @@ db_labs=# select * from subscription;
 (3 rows)
 ```
 
-# Міграція №2: створення таблиці
+## Міграція №2: створення таблиці
 
 Зміни у визначенні моделей:
 
@@ -76,7 +93,8 @@ op.bulk_insert(
 )
 ```
 
-Версія бази даних: `ad14dc436a24_add_moderator_users.py`
+Версія бази даних:
+[`ad14dc436a24_add_moderator_users.py`](https://github.com/Mr-Chekaut-Dungeon-IM-42/databases-2025/blob/main/lab6/src/alembic/versions/ad14dc436a24_add_moderator_users.py)
 
 Вигляд таблиці `moderators` після міграції:
 
@@ -88,7 +106,7 @@ db_labs=# select * from moderators;
 (1 row)
 ```
 
-# Міграція №3: видалення таблиці
+## Міграція №3: видалення таблиці
 
 Зміни у визначенні моделей:
 
@@ -166,7 +184,8 @@ db_labs=# select * from moderators;
      )
 ```
 
-Версія бази даних: `e3d90608cd2d_remove_playlists.py`
+Версія бази даних:
+[`e3d90608cd2d_remove_playlists.py`](https://github.com/Mr-Chekaut-Dungeon-IM-42/databases-2025/blob/main/lab6/src/alembic/versions/e3d90608cd2d_remove_playlists.py)
 
 Вигляд таблиці `playlists` після міграції:
 
