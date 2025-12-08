@@ -166,8 +166,7 @@ class Subscription(Base):
     channel_id: Mapped[int] = mapped_column(
         Integer, ForeignKey("channels.id", ondelete="CASCADE"), primary_key=True
     )
-    is_premium: Mapped[bool] = mapped_column(Boolean, server_default=false())
-
+    
     user: Mapped[User] = relationship("User", back_populates="subscriptions")
     channel: Mapped[Channel] = relationship("Channel", back_populates="subscribers")
 
