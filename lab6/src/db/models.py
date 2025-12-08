@@ -10,6 +10,7 @@ from sqlalchemy import (
     String,
     Text,
     false,
+    func,
     text,
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
@@ -51,6 +52,20 @@ class User(Base):
     views: Mapped[list["View"]] = relationship(
         "View", back_populates="user", cascade="all, delete-orphan"
     )
+
+
+class Moderator(Base):
+    __tablename__ = "moderators"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    created_at: Mapped[str] = mapped_column(
+        Date, nullable=False, server_default=func.now()
+    )
+    user_id: Mapped[int] = mapped_column(
+        Integer, ForeignKey("users.id", ondelete="CASCADE"), primary_key=True
+    )
+
+    user: Mapped[User] = relationship("User", back_populates="moderators")
 
 
 class Channel(Base):
@@ -166,7 +181,7 @@ class Subscription(Base):
     channel_id: Mapped[int] = mapped_column(
         Integer, ForeignKey("channels.id", ondelete="CASCADE"), primary_key=True
     )
-    
+
     user: Mapped[User] = relationship("User", back_populates="subscriptions")
     channel: Mapped[Channel] = relationship("Channel", back_populates="subscribers")
 

@@ -81,7 +81,7 @@ class Moderator(Base):
         Date, nullable=False, server_default=func.now()
     )
     user_id: Mapped[int] = mapped_column(
-        Integer, ForeignKey("videos.id", ondelete="CASCADE"), primary_key=True
+        Integer, ForeignKey("users.id", ondelete="CASCADE"), primary_key=True
     )
 
     user: Mapped[User] = relationship("User", back_populates="moderators")
