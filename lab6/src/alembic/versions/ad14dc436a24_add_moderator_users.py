@@ -32,7 +32,7 @@ def upgrade() -> None:
         sa.Column("user_id", sa.Integer(), nullable=False),
         sa.ForeignKeyConstraint(
             ["user_id"],
-            ["videos.id"],
+            ["users.id"],
             name=op.f("fk_moderators_user_id_videos"),
             ondelete="CASCADE",
         ),
